@@ -197,11 +197,16 @@ public class Robot extends TimedRobot {
 
             % if brushed or useDataPort:
         encoder.setInverted(${str(rightEncoderInverted).lower()});
-            % endif
         rightEncoderPosition = ()
           -> encoder.getPosition() * encoderConstant;
         rightEncoderRate = ()
           -> encoder.getVelocity() * encoderConstant / 60.;
+            % else:
+        rightEncoderPosition = ()
+          -> ${'-' if rightEncoderInverted else ''}encoder.getPosition() * encoderConstant;
+        rightEncoderRate = ()
+          -> ${'-' if rightEncoderInverted else ''}encoder.getVelocity() * encoderConstant / 60.;
+            % endif
           % endif
         % endif
 
@@ -234,11 +239,16 @@ public class Robot extends TimedRobot {
           % else:
             % if brushed or useDataPort:
         encoder.setInverted(${str(encoderInverted).lower()});
-            % endif
         leftEncoderPosition = ()
           -> encoder.getPosition() * encoderConstant;
         leftEncoderRate = ()
           -> encoder.getVelocity() * encoderConstant / 60.;
+            % else:
+        leftEncoderPosition = ()
+          -> ${'-' if encoderInverted else ''}encoder.getPosition() * encoderConstant;
+        leftEncoderRate = ()
+          -> ${'-' if encoderInverted else ''}encoder.getVelocity() * encoderConstant / 60.;
+            % endif
           % endif
         % endif
 
